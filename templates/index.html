@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            width: 400px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .password-display {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+            word-wrap: break-word;
+        }
+
+        .saved-passwords {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .saved-passwords p {
+            margin: 5px 0;
+            background-color: #f1f1f1;
+            padding: 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Password Generator 🔐</h2>
+        <form method="POST">
+            <input type="text" name="app_name" placeholder="Enter Application Name" required><br>
+            <button class="button" type="submit" name="action" value="Generate Password">Generate Password</button>
+            <button class="button" type="submit" name="action" value="Show Passwords">Show Passwords</button>
+        </form>
+
+        {% if generated_password %}
+            <div class="password-display">
+                <p>Generated Password: <code>{{ generated_password }}</code></p>
+            </div>
+        {% endif %}
+
+        {% if show_passwords %}
+        <div class="saved-passwords">
+            <h3>Saved Passwords 🗂️</h3>
+            {% for app, pwd in saved_passwords.items() %}
+                <p><strong>{{ app }}:</strong> {{ pwd }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
